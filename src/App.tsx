@@ -72,7 +72,7 @@ function App() {
       }} justify={'center'} align={'top'}>
         <Space size={'middle'} direction="vertical" style={{
           width: '100%',
-          padding: '1rem'
+          padding: '2rem'
         }}>
           <Space size={'middle'} style={{
             color: colorText,
@@ -107,7 +107,7 @@ function App() {
               icon={<UnlockFilled/>}
             >Decrypt</Button>
           </Space>
-          <Space.Compact style={{width: '100%'}}>
+          <Space.Compact style={{ width: '100%' }}>
             <Input placeholder="Result" readOnly value={result} variant={"filled"}/>
             <Tooltip placement="top" title={'Copied!'} arrow open={copied}>
               <Button

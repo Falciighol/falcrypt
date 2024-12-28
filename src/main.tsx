@@ -17,9 +17,6 @@ createRoot(document.getElementById('root')!).render(
       algorithm: theme[selectedTheme],
       "token": {
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto',
-        "colorPrimary": "#bb30ff",
-        "colorInfo": "#bb30ff",
-        "colorSuccess": "#3ec71a",
       },
     }}>
       <App />
