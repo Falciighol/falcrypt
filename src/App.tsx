@@ -55,14 +55,14 @@ function App() {
 
   const handleCopy = async () => {
     if (result) {
-      if (!navigator.clipboard) {
+      // if (!navigator.clipboard) {
         const resultArea = document.getElementById("result") as HTMLInputElement;
         resultArea.focus();
         resultArea.select();
         document.execCommand('copy');
-      } else {
-        await navigator.clipboard.writeText(result)
-      }
+      // } else {
+      //   await navigator.clipboard.writeText(result)
+      // }
       setCopied(true)
       setDisableCopy(true)
       setTimeout(() => {
