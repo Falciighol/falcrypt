@@ -1,4 +1,4 @@
-import { Alert, Button, Flex, Input, Space, Tooltip } from "antd";
+import { Alert, Button, Flex, Input, Space, theme, Tooltip } from "antd";
 import { CopyOutlined, LockFilled, UnlockFilled } from "@ant-design/icons";
 import { decrypt, encrypt } from "./utils";
 import { useEffect, useState } from "react";
@@ -11,6 +11,9 @@ function App() {
   const [successMsg, setSuccessMsg] = useState('');
   const [disableCopy, setDisableCopy] = useState(true);
   const [copied, setCopied] = useState(false);
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
   useEffect(() => {
     if (result) {
@@ -63,7 +66,7 @@ function App() {
   }
 
   return (
-    <>
+    <div style={{ background: colorBgContainer, height: '100vh' }}>
       <Flex style={{
         width: '100%'
       }} justify={'center'} align={'top'}>
@@ -122,7 +125,7 @@ function App() {
           variant="solid"
           icon={<CopyOutlined/>}></Button>
       </Flex>
-    </>
+    </div>
   )
 }
 
