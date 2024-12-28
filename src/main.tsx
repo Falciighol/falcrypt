@@ -4,8 +4,11 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-// const selectedTheme = 'defaultAlgorithm';
-const selectedTheme = 'darkAlgorithm';
+// get url params
+const urlParams = new URLSearchParams(window.location.search);
+const themeParam = urlParams.get('theme');
+
+const selectedTheme = themeParam === 'light' ? 'defaultAlgorithm' : 'darkAlgorithm';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
