@@ -16,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
       theme={{
       algorithm: theme[selectedTheme],
       "token": {
-        fontFamily: '"Maven Pro", "Bebas Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto',
         "colorPrimary": "#bb30ff",
         "colorInfo": "#bb30ff",
         "colorSuccess": "#3ec71a",

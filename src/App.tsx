@@ -12,7 +12,7 @@ function App() {
   const [disableCopy, setDisableCopy] = useState(true);
   const [copied, setCopied] = useState(false);
   const {
-    token: { colorBgContainer },
+    token: { colorBgContainer, colorText },
   } = theme.useToken();
 
   useEffect(() => {
@@ -74,6 +74,12 @@ function App() {
           width: '100%',
           padding: '1rem'
         }}>
+          <Space size={'middle'} style={{
+            color: colorText,
+          }}>
+            <h1>Falcrypt</h1>
+            <h3>made for Notion</h3>
+          </Space>
           <div style={{
             width: '15rem'
           }}>
@@ -92,16 +98,16 @@ function App() {
               type="default"
               onClick={() => handleEncrypt()}
               disabled={(!password || !value)}
-              icon={<LockFilled />}
+              icon={<LockFilled/>}
             >Encrypt</Button>
             <Button
               type="default"
               onClick={() => handleDecrypt()}
               disabled={(!password || !value)}
-              icon={<UnlockFilled />}
+              icon={<UnlockFilled/>}
             >Decrypt</Button>
           </Space>
-          <Space.Compact style={{ width: '100%' }} >
+          <Space.Compact style={{width: '100%'}}>
             <Input placeholder="Result" readOnly value={result} variant={"filled"}/>
             <Tooltip placement="top" title={'Copied!'} arrow open={copied}>
               <Button
