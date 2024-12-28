@@ -1,5 +1,5 @@
 import { Alert, Button, Flex, Input, Space, theme, Tooltip } from "antd";
-import { CopyOutlined, LockFilled, UnlockFilled } from "@ant-design/icons";
+import { CopyFilled, LockFilled, UnlockFilled } from "@ant-design/icons";
 import { decrypt, encrypt } from "./utils";
 import { useEffect, useState } from "react";
 
@@ -55,7 +55,14 @@ function App() {
 
   const handleCopy = async () => {
     if (result) {
-      await navigator.clipboard.writeText(result)
+      if (!navigator.clipboard) {
+        const resultArea = document.getElementById("result") as HTMLInputElement;
+        resultArea.focus();
+        resultArea.select();
+        document.execCommand('copy');
+      } else {
+        await navigator.clipboard.writeText(result)
+      }
       setCopied(true)
       setDisableCopy(true)
       setTimeout(() => {
@@ -72,13 +79,13 @@ function App() {
       }} justify={'center'} align={'top'}>
         <Space size={'middle'} direction="vertical" style={{
           width: '100%',
-          padding: '2rem'
+          padding: '0 2rem 2rem'
         }}>
           <Space size={'middle'} style={{
             color: colorText,
           }}>
             <h1>Falcrypt</h1>
-            <h3>made for Notion</h3>
+            <h4>made for Notion</h4>
           </Space>
           <div style={{
             width: '15rem'
@@ -108,12 +115,11 @@ function App() {
             >Decrypt</Button>
           </Space>
           <Space.Compact style={{ width: '100%' }}>
-            <Input placeholder="Result" readOnly value={result} variant={"filled"}/>
+            <Input placeholder="Result" readOnly value={result} variant={"filled"} id={'result'}/>
             <Tooltip placement="top" title={'Copied!'} arrow open={copied}>
               <Button
-                color={'default'}
-                variant={'solid'}
-                icon={<CopyOutlined/>}
+                type="default"
+                icon={<CopyFilled />}
                 onClick={() => handleCopy()}
                 disabled={!result || disableCopy}
               >Copy</Button>
@@ -122,14 +128,6 @@ function App() {
           {successMsg && <Alert message={successMsg} type="info"/>}
           {error && <Alert message={error} type="error"/>}
         </Space>
-      </Flex>
-      <Flex style={{
-        width: '100%',
-      }} justify={'right'} align={'top'}>
-        <Button
-          color="default"
-          variant="solid"
-          icon={<CopyOutlined/>}></Button>
       </Flex>
     </div>
   )
