@@ -23,7 +23,6 @@ function App() {
 
   const handleEncrypt = () => {
     setSuccessMsg('')
-    console.log('handleEncrypt:: value:', value)
     if (!password || !value) {
       setError('Password and value are required')
       return
@@ -36,7 +35,6 @@ function App() {
 
   const handleDecrypt = () => {
     setSuccessMsg('')
-    console.log('handleDecrypt:: value:', value)
     if (!password || !value) {
       setError('Password and value are required')
       return
@@ -55,14 +53,11 @@ function App() {
 
   const handleCopy = async () => {
     if (result) {
-      // if (!navigator.clipboard) {
-        const resultArea = document.getElementById("result") as HTMLInputElement;
-        resultArea.focus();
-        resultArea.select();
-        document.execCommand('copy');
-      // } else {
-      //   await navigator.clipboard.writeText(result)
-      // }
+      const resultArea = document.getElementById("result") as HTMLInputElement;
+      resultArea.focus();
+      resultArea.select();
+      document.execCommand('copy');
+      // await navigator.clipboard.writeText(result)
       setCopied(true)
       setDisableCopy(true)
       setTimeout(() => {
