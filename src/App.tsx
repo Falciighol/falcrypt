@@ -19,8 +19,6 @@ function App() {
     token: { colorBgContainer, colorText },
   } = theme.useToken();
 
-  console.log('colorBgContainer', colorBgContainer)
-
   useEffect(() => {
     if (result) {
       setDisableCopy(false)
