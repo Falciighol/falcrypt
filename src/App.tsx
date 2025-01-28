@@ -3,7 +3,7 @@ import { CopyFilled, LockFilled, UndoOutlined, UnlockFilled } from "@ant-design/
 import { decrypt, encrypt } from "./utils";
 import { useEffect, useState } from "react";
 
-const { Title } = Typography;
+const { Text } = Typography;
 
 function App() {
   const [password, setPassword] = useState('');
@@ -101,10 +101,16 @@ function App() {
             color: colorText,
           }}>
             <h1>Falcrypt</h1>
-            <h4>made for Notion</h4>
+            <Text strong>made for Notion</Text>
           </Space>
-          <div>
-            <Title level={5}>PIN</Title>
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+            gap: '.5rem',
+          }}>
+            <Text strong>PIN</Text>
             <Space size={'middle'}>
               <div style={{
                 width: '15rem'
