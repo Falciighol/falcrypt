@@ -1,77 +1,79 @@
-import { Alert, Button, Flex, Input, Space, theme, Tooltip, Typography } from "antd";
-import { CopyFilled, LockFilled, UndoOutlined, UnlockFilled } from "@ant-design/icons";
-import { decrypt, encrypt } from "./utils";
-import { useEffect, useState } from "react";
+import { Alert, Button, Flex, Input, Space, theme, Tooltip, Typography } from 'antd'
+import { CopyFilled, LockFilled, UndoOutlined, UnlockFilled } from '@ant-design/icons'
+import { decrypt, encrypt } from './utils'
+import { useEffect, useState } from 'react'
 
-const { Text } = Typography;
+const { Text } = Typography
 
 function App() {
-  const [password, setPassword] = useState('');
-  const [value, setValue] = useState('');
-  const [result, setResult] = useState('');
-  const [error, setError] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
-  const [disableCopy, setDisableCopy] = useState(true);
-  const [copied, setCopied] = useState(false);
-  const [lastAction, setLastAction] = useState('');
+  const [pin, setPin] = useState('')
+  const [error, setError] = useState('')
+  const [value, setValue] = useState('')
+  const [result, setResult] = useState('')
+  const [copied, setCopied] = useState(false)
+  const [lastAction, setLastAction] = useState('')
+  const [successMsg, setSuccessMsg] = useState('')
+  const [disableCopy, setDisableCopy] = useState(true)
 
   const {
     token: { colorBgContainer, colorText },
-  } = theme.useToken();
+  } = theme.useToken()
 
   useEffect(() => {
     if (result) {
       setDisableCopy(false)
     }
-  }, [result]);
+  }, [result])
 
   const handleEncrypt = () => {
     setSuccessMsg('')
-    if (!password || !value) {
+    if (!pin || !value) {
       setError('Password and value are required')
       return
     }
-    setResult(encrypt(value, password))
-    setSuccessMsg('Successfully encrypted')
+    setPin('')
     setValue('')
     setError('')
+    setResult(encrypt(value, pin))
+    setSuccessMsg('Successfully encrypted')
     setLastAction('encrypt')
   }
 
   const handleDecrypt = () => {
     setSuccessMsg('')
-    if (!password || !value) {
+    if (!pin || !value) {
       setError('Password and value are required')
       return
     }
-    const decrypted = decrypt(value, password)
+    const decrypted = decrypt(value, pin)
 
     if (decrypted) {
-      setResult(decrypted)
-      setSuccessMsg(decrypted !== result ? 'Successfully decrypted' : 'Already decrypted')
+      setPin('')
       setValue('')
       setError('')
+      setResult(decrypted)
+      setSuccessMsg(decrypted !== result ? 'Successfully decrypted' : 'Already decrypted')
     } else {
-      setError('Invalid password or value')
+      setError('Invalid pin or value')
     }
     setLastAction('decrypt')
   }
 
   const handleReset = () => {
-    setPassword('')
+    setPin('')
     setValue('')
-    setResult('')
     setError('')
+    setResult('')
     setSuccessMsg('')
     setDisableCopy(true)
   }
 
   const handleCopy = async () => {
     if (result) {
-      const resultArea = document.getElementById("result") as HTMLInputElement;
-      resultArea.focus();
-      resultArea.select();
-      document.execCommand('copy');
+      const resultArea = document.getElementById('result') as HTMLInputElement
+      resultArea.focus()
+      resultArea.select()
+      document.execCommand('copy')
       // await navigator.clipboard.writeText(result)
       setCopied(true)
       setDisableCopy(true)
@@ -79,6 +81,7 @@ function App() {
         setCopied(false)
         setDisableCopy(false)
         if (lastAction === 'decrypt') {
+          setPin('')
           setResult('')
           setSuccessMsg('')
         }
@@ -115,14 +118,14 @@ function App() {
               }}>
                 <Input.Password
                   placeholder="PIN"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={pin}
+                  onChange={(e) => setPin(e.target.value)}
                 />
               </div>
               <Button
                 type="default"
                 onClick={() => handleReset()}
-                disabled={(!value && !result && !password)}
+                disabled={(!value && !result && !pin)}
                 icon={<UndoOutlined />}
               >
                 Reset
@@ -138,18 +141,18 @@ function App() {
             <Button
               type="default"
               onClick={() => handleEncrypt()}
-              disabled={(!password || !value)}
+              disabled={(!pin || !value)}
               icon={<LockFilled/>}
             >Encrypt</Button>
             <Button
               type="default"
               onClick={() => handleDecrypt()}
-              disabled={(!password || !value)}
+              disabled={(!pin || !value)}
               icon={<UnlockFilled/>}
             >Decrypt</Button>
           </Space>
           <Space.Compact style={{ width: '100%' }}>
-            <Input placeholder="Result" readOnly value={result} variant={"filled"} id={'result'}/>
+            <Input placeholder="Result" readOnly value={result} variant={'filled'} id={'result'}/>
             <Tooltip placement="top" title={'Copied!'} arrow open={copied}>
               <Button
                 type="default"
